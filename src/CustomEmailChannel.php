@@ -2,6 +2,7 @@
 
 namespace NotificationChannels\CustomEmail;
 
+use Illuminate\Support\Facades\Mail;
 use NotificationChannels\CustomEmail\Exceptions\CouldNotSendNotification;
 use NotificationChannels\CustomEmail\Events\MessageWasSent;
 use NotificationChannels\CustomEmail\Events\SendingMessage;
@@ -11,7 +12,7 @@ class CustomEmailChannel
 {
     protected $config;
 
-    public function __construct($config)
+    public function __construct()
     {
         $this->config = config('services.custom_email');
     }
@@ -36,6 +37,6 @@ class CustomEmailChannel
             $message = new CustomEmailMessage($message);
         }
 
-        \Illuminate\Support\Facades\Mail::to($to)->send(new $this->config['MailClass']($message->getContent()));
+        Mail::to($to)->send(new $this->config['MailClass']($message->getContent()));
     }
 }
