@@ -13,7 +13,7 @@ class CustomEmailChannel
 
     public function __construct($config)
     {
-        $this->config = $config;
+        $this->config = config('services.custom_email');
     }
 
     /**
